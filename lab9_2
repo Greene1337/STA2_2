@@ -1,0 +1,54 @@
+#include <iostream>
+
+struct ProductItem
+{
+	const char * m_productName;
+	double m_price;
+	double m_quantity;
+};
+
+double getProductValue(ProductItem const & _pi);
+
+void selectionSort(ProductItem* _pData, const int _N);
+
+int main()
+{
+	const int MAX = 10;
+	ProductItem items[MAX] = {
+		{"Bread",5.75,2},
+		{"Tomato",3.40,5},
+		{"Cucumber",10.55,2},
+		{"Corn",23.65,1},
+		{"Sweets",60.5,0.4},
+		{"Cakes",35.80,0.5},
+		{"Apples",5.50,3.5},
+		{"Watermelon",5,15},
+		{ "Chips",25.80, 1},
+		{"Potato",2,20.5},
+	};
+
+	selectionSort(items, MAX);
+
+	for (int i = 0; i < MAX; i++)
+		std::cout << items[i].m_productName << " " << getProductValue(items[i]) << std::endl;
+
+	return 0;
+}
+
+double getProductValue(ProductItem const & _pi)
+{
+	return _pi.m_price * _pi.m_quantity;
+}
+
+void selectionSort(ProductItem* _pData, const int _N)
+{
+	for (int i = 0; i < _N - 1; i++)
+	{
+		int lowIndex = i;
+		for (int j = i + 1; j < _N; j++)
+			if (getProductValue(_pData[j]) > getProductValue(_pData[lowIndex]))
+				lowIndex = j;
+
+		std::swap(_pData[lowIndex], _pData[i]);
+	}
+}
